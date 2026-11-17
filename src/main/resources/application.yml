@@ -1,0 +1,43 @@
+spring:
+  application.name: coupon-service
+  threads.virtual.enabled: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/kupony
+    username: kupony
+    password: kupony
+    hikari:
+      maximum-pool-size: 20
+      connection-timeout: 1000
+  jpa:
+    open-in-view: false
+    hibernate.ddl-auto: validate
+    properties.hibernate:
+      jdbc.batch_size: 100
+      order_inserts: true
+  liquibase.change-log: classpath:db/changelog/db.changelog-master.yaml
+
+server.shutdown: graceful
+
+coupons:
+  reveal-exhausted-reason: true
+  geo:
+    base-url: http://ip-api.com
+    connect-timeout: 300ms
+    read-timeout: 1s
+    reject-hosting: false
+    cache-ttl: 1h
+    cache-max-size: 100000
+
+  archival:
+    enabled: true
+    batch-size: 1000
+    batch-pause: 50ms
+    lease: 5m
+    max-attempts: 5
+    retry-backoff: 1m
+    sweep-interval: PT1M
+    queue-capacity: 1000
+
+management:
+  endpoints.web.exposure.include: health,metrics
+  endpoint.health.show-details: never

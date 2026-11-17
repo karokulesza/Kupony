@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002-active-coupons-fillfactor
+      author: kupony
+      dbms: postgresql
+      changes:
+        - sql:
+            sql: ALTER TABLE active_coupons SET (fillfactor = 90)
